@@ -1,1 +1,1 @@
-json.merge! @board.attributes
+json.merge!(@board.attributes.merge(@board.lists))
