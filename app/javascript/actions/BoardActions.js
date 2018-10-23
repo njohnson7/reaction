@@ -24,6 +24,10 @@ export function fetchBoards() {
   };
 }
 
+export function fetchBoard() {
+
+}
+
 export function createBoard(board, callback) {
   return function(dispatch) {
     dispatch(createBoardRequest());
