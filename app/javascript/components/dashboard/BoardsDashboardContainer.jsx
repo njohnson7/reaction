@@ -1,26 +1,28 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import BoardsDashboard from './BoardsDashboard'
-import * as actions from '../../actions/BoardActions'
+import React from 'react';
+import PropTypes from 'prop-types';
+
+import BoardsDashboard from './BoardsDashboard';
+
+import * as actions from '../../actions/BoardActions';
 
 class BoardsDashboardContainer extends React.Component {
   static contextTypes = {
-    store: PropTypes.object.isRequired,
-  }
+    store: PropTypes.object.isRequired
+  };
 
   componentDidMount() {
-    const store = this.context.store
-    this.unsubscribe = store.subscribe(() => this.forceUpdate())
-    store.dispatch(actions.fetchBoards())
+    const store = this.context.store;
+    this.unsubscribe = store.subscribe(() => this.forceUpdate());
+    store.dispatch(actions.fetchBoards());
   }
 
   componentWillUnmount() {
-    this.unsubscribe()
+    this.unsubscribe();
   }
 
   allBoards = () => {
-    const store = this.context.store
-    return store.getState().boards
+    const store = this.context.store;
+    return store.getState().boards;
   }
 
   render() {
@@ -32,4 +34,4 @@ class BoardsDashboardContainer extends React.Component {
   }
 }
 
-export default BoardsDashboardContainer
+export default BoardsDashboardContainer;

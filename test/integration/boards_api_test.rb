@@ -26,7 +26,6 @@ class BoardsAPITest < ActionDispatch::IntegrationTest
           params: { board: { title: "My new board" } },
           headers: { 'Accept' => 'application/json' }
 
-
         assert_response 201
       end
 
