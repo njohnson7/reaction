@@ -11,23 +11,35 @@ class BoardsAPITest < ActionDispatch::IntegrationTest
 
   class GetBoardTest < ActionDispatch::IntegrationTest
     setup do
-      board = Board.create id: 50, title: 'board'
-      list = List.create title: 'board', board: board
-      card = Card.create title: 'card', board: board, list: list
-         # ;require 'pry';binding.pry; 
-      [board, list, card].each(&:save)
+      @board = Board.create title: 'board'
+      list = List.create title: 'list', board: @board
+      card = Card.create title: 'card', board: @board, list: list
     end
 
     test "returns a json object" do
-      get "/api/boards/50.json",
+      get "/api/boards/#{@board.id}.json",
         headers: { 'Accept' => 'application/json' }
-      assert_match /\{.*}]/, response.body
+      assert_match /\{.*\}/, response.body
     end
 
-    test "returns an object with lists" do
-      get "/api/boards/50.json",
+    test "returns a board with correct titles" do
+      get "/api/boards/#{@board.id}.json",
         headers: { 'Accept' => 'application/json' }
-      assert_match /\[.*\]/, response.body
+      assert_match /board/, response.body
+      assert_match /list/, response.body
+      assert_match /card/, response.body
+    end
+
+    test "returns a json with correct structure" do
+      get "/api/boards/#{@board.id}.json",
+        headers: { 'Accept' => 'application/json' }
+
+      board = JSON.parse(response.body)
+      list = board["lists"][0]
+      card = list["cards"][0]
+      assert_equal 'board', board["title"]
+      assert_equal 'list', list["title"]
+      assert_equal 'card', card["title"]
     end
   end
 
