@@ -9,6 +9,28 @@ class BoardsAPITest < ActionDispatch::IntegrationTest
     end
   end
 
+  class GetBoardTest < ActionDispatch::IntegrationTest
+    setup do
+      board = Board.create id: 50, title: 'board'
+      list = List.create title: 'board', board: board
+      card = Card.create title: 'card', board: board, list: list
+         # ;require 'pry';binding.pry; 
+      [board, list, card].each(&:save)
+    end
+
+    test "returns a json object" do
+      get "/api/boards/50.json",
+        headers: { 'Accept' => 'application/json' }
+      assert_match /\{.*}]/, response.body
+    end
+
+    test "returns an object with lists" do
+      get "/api/boards/50.json",
+        headers: { 'Accept' => 'application/json' }
+      assert_match /\[.*\]/, response.body
+    end
+  end
+
   class PostBoardsTest < ActionDispatch::IntegrationTest
     class ValidDataTest < ActionDispatch::IntegrationTest
       test "creates a new board" do
