@@ -6,7 +6,7 @@ import Board from './Board';
 
 import * as actions from '../../actions/BoardActions';
 
-import { fetchBoard } from '../actions/BoardActions';
+import { fetchBoard } from '../../actions/BoardActions';
 
 class BoardContainer extends React.Component {
   static contextTypes = {
