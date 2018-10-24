@@ -4,6 +4,7 @@ import List from './List'
 const ListContainer = ({ lists }) => (
   <div id="list-container" className="list-container">
     <div id="existing-lists" className="existing-lists">
+      {lists.map(list => (<List key={list.id} list={list} />))}
     </div>
     <div id="new-list" className="new-list">
       <span>Add a list...</span>
