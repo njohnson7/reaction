@@ -19,6 +19,7 @@ class BoardContainer extends React.Component {
     this.unsubscribe = store.subscribe(() => this.forceUpdate());
     store.dispatch(actions.fetchBoards());
     store.dispatch(actions.fetchLists(boardId));
+    // store.dispatch(actions.fetchCards(boardId));
   }
 
   componentWillUnmount() {
