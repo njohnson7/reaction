@@ -41,6 +41,9 @@ class BoardContainer extends React.Component {
   }
 
   render() {
+    console.log('BOARD', this.board());
+    console.log('LISTS', this.lists());
+    console.log('CARDS', this.cards());
     return (
       <Board 
         board={this.board()}

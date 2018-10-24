@@ -17,22 +17,6 @@ export function fetchBoardSuccess(board) {
 }
 
 
-export function fetchListsRequest() {
-  return { type: types.FETCH_LISTS_REQUEST };
-}
-export function fetchListsSuccess(lists) {
-  return { type: types.FETCH_LISTS_SUCCESS, lists };
-}
-
-
-export function fetchCardsRequest() {
-  return { type: types.FETCH_CARDS_REQUEST };
-}
-export function fetchCardsSuccess(cards) {
-  return { type: types.FETCH_CARDS_SUCCESS, cards };
-}
-
-
 export function createBoardRequest() {
   return { type: types.CREATE_BOARD_REQUEST };
 }
@@ -64,8 +48,6 @@ export function fetchBoard(boardId) {
     dispatch(fetchBoardRequest());
     apiClient.getBoard(boardId, board => {
       dispatch(fetchBoardSuccess(board));
-      dispatch(fetchListsSuccess(board.lists));
-      board.lists.forEach(list => dispatch(fetchCardsSuccess(list.cards)));
     });
   }
 }
