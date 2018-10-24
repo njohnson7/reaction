@@ -6,7 +6,7 @@ import Board from './Board';
 
 import * as actions from '../../actions/BoardActions';
 
-import { fetchBoard } from '../actions/BoardActions';
+import { fetchBoard } from '../../actions/BoardActions';
 
 class BoardContainer extends React.Component {
   static contextTypes = {
@@ -15,8 +15,10 @@ class BoardContainer extends React.Component {
 
   componentDidMount() {
     const store = this.context.store;
+    const boardId = this.props.match.params.id;    
     this.unsubscribe = store.subscribe(() => this.forceUpdate());
-    store.dispatch(actions.fetchBoard(this.props.match.params.id));
+    store.dispatch(actions.fetchBoards());
+    store.dispatch(actions.fetchLists(boardId));
   }
 
   componentWillUnmount() {
@@ -25,15 +27,20 @@ class BoardContainer extends React.Component {
 
   board = () => {
     const store = this.context.store;
-    return store.getState().board;
+    const boardId = this.props.match.params.id;
+    return store.getState().boards.find(board => board.id === +boardId);
+  }
+
+  lists = () => {
+    const store = this.context.store;
+    return store.getState().lists;
   }
 
   render() {
-    console.log(this.props.match.params.id);
+    console.log('Board', this.board());
+    console.log('Lists', this.lists());
     return (
-      <div>
-        <Board />
-      </div>
+      <Board />
     )
   }
 }
