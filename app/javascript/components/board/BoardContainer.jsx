@@ -17,9 +17,7 @@ class BoardContainer extends React.Component {
     const store = this.context.store;
     const boardId = this.props.match.params.id;    
     this.unsubscribe = store.subscribe(() => this.forceUpdate());
-    store.dispatch(actions.fetchBoards());
-    store.dispatch(actions.fetchLists(boardId));
-    // store.dispatch(actions.fetchCards(boardId));
+    store.dispatch(actions.fetchBoard(boardId));
   }
 
   componentWillUnmount() {
@@ -37,11 +35,18 @@ class BoardContainer extends React.Component {
     return store.getState().lists;
   }
 
+  cards = () => {
+    const store = this.context.store;
+    return store.getState().cards;
+  }
+
   render() {
-    console.log('Board', this.board());
-    console.log('Lists', this.lists());
     return (
-      <Board />
+      <Board 
+        board={this.board()}
+        lists={this.lists()}
+        cards={this.cards()}
+      />
     )
   }
 }

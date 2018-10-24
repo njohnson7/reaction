@@ -17,3 +17,5 @@ list2 = List.create title: 'list2', board: board1
 card1 = Card.create title: 'card1', board: board1, list: list1
 card2 = Card.create title: 'card2', board: board1, list: list1
 card3 = Card.create title: 'card3', board: board1, list: list2
+card4 = Card.create title: 'card4', board: board1, list: list2
+card5 = Card.create title: 'card5', board: board1, list: list2

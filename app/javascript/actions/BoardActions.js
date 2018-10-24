@@ -4,26 +4,42 @@ import * as types from '../constants/ActionTypes';
 export function fetchBoardsRequest() {
   return { type: types.FETCH_BOARDS_REQUEST };
 }
-
 export function fetchBoardsSuccess(boards) {
   return { type: types.FETCH_BOARDS_SUCCESS, boards };
 }
 
+
+export function fetchBoardRequest(boardId) {
+  return { type: types.FETCH_BOARD_REQUEST, boardId };
+}
+export function fetchBoardSuccess(board) {
+  return { type: types.FETCH_BOARD_SUCCESS, board };
+}
+
+
 export function fetchListsRequest() {
   return { type: types.FETCH_LISTS_REQUEST };
 }
-
 export function fetchListsSuccess(lists) {
   return { type: types.FETCH_LISTS_SUCCESS, lists };
 }
 
+
+export function fetchCardsRequest() {
+  return { type: types.FETCH_CARDS_REQUEST };
+}
+export function fetchCardsSuccess(cards) {
+  return { type: types.FETCH_CARDS_SUCCESS, cards };
+}
+
+
 export function createBoardRequest() {
   return { type: types.CREATE_BOARD_REQUEST };
 }
-
 export function createBoardSuccess(board) {
   return { type: types.CREATE_BOARD_SUCCESS, board: board };
 }
+
 
 export function fetchBoards() {
   return function(dispatch) {
@@ -43,9 +59,13 @@ export function createBoard(board, callback) {
   }
 }
 
-export function fetchLists(boardId) {
+export function fetchBoard(boardId) {
   return function(dispatch) {
-    dispatch(fetchListsRequest());
-    apiClient.getBoard(boardId, board => dispatch(fetchListsSuccess(board.lists)));
-  };
+    dispatch(fetchBoardRequest());
+    apiClient.getBoard(boardId, board => {
+      dispatch(fetchBoardSuccess(board));
+      dispatch(fetchListsSuccess(board.lists));
+      board.lists.forEach(list => dispatch(fetchCardsSuccess(list.cards)));
+    });
+  }
 }
