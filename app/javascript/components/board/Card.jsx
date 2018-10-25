@@ -1,18 +1,10 @@
 import React from 'react';
 import moment from 'moment';
   const getDueDateClass = (card) => {
-    console.log(typeof card.due_date);
-    // if completed
-    //   green
-    // else
-    //   overdue: red
-    //   due-soon: yellow
-    //   due-later: ???
     if (card.completed) {
       return 'completed';
     } else {
-      // if overdue
-      if (new Date(card.due_date) < new Date()) {
+      if (new Date(card.due_date) < new Date()) {  // overdue
         return 'overdue';
       } else {
         return 'due-soon';
@@ -32,10 +24,16 @@ const Card = ({ card }) => {
         <p>{card.title}</p>
       </div>
       <div className="card-icons">
-        <i className={`clock-icon sm-icon ${getDueDateClass(card)}`}>
-          {moment(card.due_date).format('MMM DD')}
-        </i>
-        <i className="description-icon sm-icon"></i>
+        {card.due_date
+          ? <i className={`clock-icon sm-icon ${getDueDateClass(card)}`}>
+              {moment(card.due_date).format('MMM DD')}
+            </i>
+          : null
+        }
+        {card.description
+          ? <i className="description-icon sm-icon"></i>
+          : null
+        }
         <i className="comment-icon sm-icon"></i>
       </div>
     </div>
