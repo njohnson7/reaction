@@ -1,12 +1,8 @@
 import apiClient from '../lib/ApiClient';
 import * as types from '../constants/ActionTypes';
 
-export function fetchBoardsRequest() {
-  return { type: types.FETCH_BOARDS_REQUEST };
-}
-
-export function fetchBoardsSuccess(boards) {
-  return { type: types.FETCH_BOARDS_SUCCESS, boards };
+export function fetchBoardRequest(boardId) {
+  return { type: types.FETCH_BOARD_REQUEST, boardId };
 }
 
 export function fetchBoardSuccess(board) {
@@ -16,10 +12,10 @@ export function fetchBoardSuccess(board) {
 export function createBoardRequest() {
   return { type: types.CREATE_BOARD_REQUEST };
 }
-
 export function createBoardSuccess(board) {
   return { type: types.CREATE_BOARD_SUCCESS, board: board };
 }
+
 
 export function fetchBoards() {
   return function(dispatch) {
@@ -36,5 +32,14 @@ export function createBoard(board, callback) {
 
       if (callback) { callback(newBoard); }
     })
+  }
+}
+
+export function fetchBoard(boardId) {
+  return function(dispatch) {
+    dispatch(fetchBoardRequest());
+    apiClient.getBoard(boardId, board => {
+      dispatch(fetchBoardSuccess(board));
+    });
   }
 }

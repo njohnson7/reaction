@@ -15,25 +15,38 @@ class BoardContainer extends React.Component {
 
   componentDidMount() {
     const store = this.context.store;
+    const boardId = this.props.match.params.id;    
     this.unsubscribe = store.subscribe(() => this.forceUpdate());
-    store.dispatch(actions.fetchBoard(this.props.match.params.id));
+    store.dispatch(actions.fetchBoard(boardId));
   }
 
   componentWillUnmount() {
     this.unsubscribe();
-  }
+  } 
 
   board = () => {
     const store = this.context.store;
-    return store.getState().board;
+    const boardId = this.props.match.params.id;
+    return store.getState().boards.find(board => board.id === +boardId);
+  }
+
+  lists = () => {
+    const store = this.context.store;
+    return store.getState().lists;
+  }
+
+  cards = () => {
+    const store = this.context.store;
+    return store.getState().cards;
   }
 
   render() {
-    console.log(this.props.match.params.id);
     return (
-      <div>
-        <Board />
-      </div>
+      <Board 
+        board={this.board()}
+        lists={this.lists()}
+        cards={this.cards()}
+      />
     )
   }
 }

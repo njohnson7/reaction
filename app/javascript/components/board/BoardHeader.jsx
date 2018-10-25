@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const BoardHeader = props => (
+const BoardHeader = ({ board }) => (
   <header>
     <ul>
-      <li id="title">My Title</li>
+      <li id="title">{board.title}</li>
       <li className="star-icon icon"></li>
       <li className="private private-icon icon">Private</li>
     </ul>

@@ -7,7 +7,9 @@ import cardsReducer from '../reducers/CardsReducer';
 
 function reducer(state = {}, action) {
   return {
-    boards: boardsReducer(state.boards, action)
+    boards: boardsReducer(state.boards, action),
+    lists: listsReducer(state.lists, action),
+    cards: cardsReducer(state.cards, action)
   };
 }
 
