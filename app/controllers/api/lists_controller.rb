@@ -28,20 +28,25 @@ class Api::ListsController < ApplicationController
   end
 
   def update
+    require 'pry'; binding.pry
     @list = List.find(params[:id])
 
-    if @list.update(list_params)
+    if @list.update(id: params[:id], board_id: @list.board_id, title: params[:title])
       render :update
     else
       @error = @list.errors.full_message.join(', ')
       render 'api/shared/error', status: :unprocessable_entity
     end
-  rescue ActiveRecord::ParamaterMissing
+  rescue ActionController::ParameterMissing
     @error = 'Invalid list data provided'
     render 'api/shared/error', status: :not_found
   end
 
   private
+
+  # def title_params
+  #   params.require(:list).permit(:title)
+  # end
 
   def list_params
     params.permit(list: :title)[:list].merge({board_id: params.require(:board_id)})
