@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import List from './List'
-import AddList from './AddList'
+import List from './List';
+import AddList from './AddList';
 
 // import * as actions from '../../actions/BoardActions';
 // import { fetchBoard } from '../../actions/BoardActions';
@@ -12,24 +12,24 @@ class ListContainer extends React.Component {
   }
 
   addListClickHandler = () => {
-    this.setState({ addListVisible: !this.state.addListVisible })
+    this.setState({ addListVisible: !this.state.addListVisible });
   }
+
   addListChangeHandler = (event) => {
-    this.setState({ addListText: event.target.value })
+    this.setState({ addListText: event.target.value });
   }
 
   addListSaveHandler = (event) => {
-    console.log(event, this)
-    event.preventDefault()
-    if (!this.state.addListText) return
+    console.log(event, this);
+    event.preventDefault();
+    if (!this.state.addListText) return;
 
-
-    let board_id = location.pathname.match(/boards\/(\d+)/)[1]
-    let title = this.state.addListText
+    let board_id = location.pathname.match(/boards\/(\d+)/)[1];
+    let title = this.state.addListText;
     let body = JSON.stringify({
       board_id,
       list: { title },
-    })
+    });
 
     fetch('/api/lists', {
       method: 'POST',
@@ -42,11 +42,11 @@ class ListContainer extends React.Component {
       // Render new list onto page
       // .then(_ => this.context.store.dispatch(actions.fetchBoard(boardId)))
 
-    console.log(this.state.addListText)
+    console.log(this.state.addListText);
     this.setState({ 
       addListVisible: false,
       addListText: '',
-    })
+    });
   }
 
   render() {
@@ -65,7 +65,7 @@ class ListContainer extends React.Component {
           save={this.addListSaveHandler}
         />
       </div>
-    )
+    );
   }
 }
 
