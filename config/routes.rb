@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   namespace :api do # /api/boards
     resources :boards, only: [:index, :create, :show]
+    resources :lists, only: [:index, :create, :show]
   end
 
   get '/boards/:id', to: 'home#index'
