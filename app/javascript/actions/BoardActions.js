@@ -4,18 +4,18 @@ import * as types from '../constants/ActionTypes';
 export function fetchBoardsRequest() {
   return { type: types.FETCH_BOARDS_REQUEST };
 }
+
 export function fetchBoardsSuccess(boards) {
   return { type: types.FETCH_BOARDS_SUCCESS, boards };
 }
 
-
 export function fetchBoardRequest(boardId) {
   return { type: types.FETCH_BOARD_REQUEST, boardId };
 }
+
 export function fetchBoardSuccess(board) {
   return { type: types.FETCH_BOARD_SUCCESS, board };
 }
-
 
 export function createBoardRequest() {
   return { type: types.CREATE_BOARD_REQUEST };

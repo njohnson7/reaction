@@ -1,16 +1,17 @@
 import React from 'react';
 import moment from 'moment';
-  const getDueDateClass = (card) => {
-    if (card.completed) {
-      return 'completed';
+
+const getDueDateClass = (card) => {
+  if (card.completed) {
+    return 'completed';
+  } else {
+    if (new Date(card.due_date) < new Date()) {  // overdue
+      return 'overdue';
     } else {
-      if (new Date(card.due_date) < new Date()) {  // overdue
-        return 'overdue';
-      } else {
-        return 'due-soon';
-      }
+      return 'due-soon';
     }
   }
+}
 
 const Card = ({ card }) => {
 
