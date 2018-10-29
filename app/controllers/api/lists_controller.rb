@@ -28,7 +28,6 @@ class Api::ListsController < ApplicationController
   end
 
   def update
-    require 'pry'; binding.pry
     @list = List.find(params[:id])
 
     if @list.update(id: params[:id], board_id: @list.board_id, title: params[:title])
@@ -43,10 +42,6 @@ class Api::ListsController < ApplicationController
   end
 
   private
-
-  # def title_params
-  #   params.require(:list).permit(:title)
-  # end
 
   def list_params
     params.permit(list: :title)[:list].merge({board_id: params.require(:board_id)})
