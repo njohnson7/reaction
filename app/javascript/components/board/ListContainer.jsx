@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
 import List from './List';
 import AddList from './AddList';
+import PropTypes from 'prop-types'
 
-// import * as actions from '../../actions/BoardActions';
-// import { fetchBoard } from '../../actions/BoardActions';
+import * as actions from '../../actions/ListActions';
 
 class ListContainer extends React.Component {
   state = {
     addListVisible: false,
     addListText: '',
+  }
+
+  static contextTypes = {
+    store: PropTypes.object.isRequired,
   }
 
   addListClickHandler = () => {
@@ -26,32 +30,20 @@ class ListContainer extends React.Component {
 
     let board_id = location.pathname.match(/boards\/(\d+)/)[1];
     let title = this.state.addListText;
-    let body = JSON.stringify({
+    let body = ({
       board_id,
       list: { title },
     });
 
-    fetch('/api/lists', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body,
-    })
-      .then(resp => console.log(resp))
-      .then(() => {
-        console.log('this:', this)
-        window.lc = this
-        this.forceUpdate()
+    this.context.store.dispatch(
+      actions.createList(body, () => {
+        this.setState({
+          addListVisible: false,
+          addListText: '',
+        });
+        this.props.onSave(body.board_id);
       })
-      // Render new list onto page
-      // .then(_ => this.context.store.dispatch(actions.fetchBoard(boardId)))
-
-    console.log(this.state.addListText);
-    this.setState({ 
-      addListVisible: false,
-      addListText: '',
-    });
+    )
   }
 
   render() {

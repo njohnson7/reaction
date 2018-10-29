@@ -40,13 +40,21 @@ class BoardContainer extends React.Component {
     return store.getState().cards;
   }
 
+  // onSave = () => {
+  //   this.forceUpdate()
+  // }
+
+  onSave = (board_id) => {
+    this.context.store.dispatch(actions.fetchBoard(board_id));
+  }
+
   render() {
-    window.bc = this
     return (
       <Board 
         board={this.board()}
         lists={this.lists()}
         cards={this.cards()}
+        onSave={this.onSave}
       />
     )
   }
