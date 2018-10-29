@@ -43,10 +43,6 @@ class Api::ListsController < ApplicationController
 
   private
 
-  # def title_params
-  #   params.require(:list).permit(:title)
-  # end
-
   def list_params
     params.permit(list: :title)[:list].merge({board_id: params.require(:board_id)})
   end
