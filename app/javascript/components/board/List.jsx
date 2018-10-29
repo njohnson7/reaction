@@ -1,5 +1,5 @@
 import React from 'react';
-import CardContainer from './CardContainer'
+import CardContainer from './CardContainer';
 
 const List = ({ list }) => (
   <div className="list-wrapper">
@@ -14,16 +14,6 @@ const List = ({ list }) => (
           <div className="add-options"><span>...</span>
           </div>
         </div>
-      {
-        console.log(list)
-// {
-//   "id": 1,
-//   "title": "list1",
-//   "board_id": 1,
-//   "created_at": "2018-10-25T16:03:44.776Z",
-//   "updated_at": "2018-10-25T16:03:44.776Z"
-// }
-      }
         <CardContainer />
         <div className="add-dropdown add-bottom">
           <div className="card"><div className="card-info"></div><textarea name="add-card"></textarea><div className="members"></div></div>
