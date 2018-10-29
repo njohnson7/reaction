@@ -41,6 +41,7 @@ class BoardContainer extends React.Component {
   }
 
   render() {
+    window.bc = this
     return (
       <Board 
         board={this.board()}

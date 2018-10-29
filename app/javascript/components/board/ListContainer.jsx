@@ -39,6 +39,11 @@ class ListContainer extends React.Component {
       body,
     })
       .then(resp => console.log(resp))
+      .then(() => {
+        console.log('this:', this)
+        window.lc = this
+        this.forceUpdate()
+      })
       // Render new list onto page
       // .then(_ => this.context.store.dispatch(actions.fetchBoard(boardId)))
 
