@@ -28,7 +28,6 @@ class Api::ListsController < ApplicationController
   end
 
   def update
-    require 'pry'; binding.pry
     @list = List.find(params[:id])
 
     if @list.update(id: params[:id], board_id: @list.board_id, title: params[:title])
