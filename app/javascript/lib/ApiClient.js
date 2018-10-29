@@ -17,6 +17,7 @@ function unwrapData(response) {
 
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 axios.defaults.headers.common['Accept'] = 'application/json';
+// axios.defaults.headers.common['Content-Type'] = 'application/json';
 
 const apiClient = {
   getBoards: function(callback) {
@@ -38,9 +39,7 @@ const apiClient = {
       .catch(logError);
   },
   updateList: function(listId, updatedList, callback) {
-    return axios.put(
-      routes.UPDATE_LIST_URL(listId), { list: updatedList }
-    )
+    return axios.put(routes.UPDATE_LIST_URL(listId), { title: updatedList.title })
       .then(unwrapData)
       .then(callback)
       .catch(logError);
