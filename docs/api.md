@@ -245,6 +245,14 @@ NOTE: The `board_id` where the list will reside is required.
   }
 }
 ```
+POST board
+```json
+{
+  "board": {
+    "title": "My new board"
+  }
+}
+```
 
 ### 1.9.3. Successful Response
 
