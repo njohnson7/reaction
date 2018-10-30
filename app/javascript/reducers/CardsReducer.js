@@ -3,6 +3,10 @@ export default function cardsReducer(state = [], action) {
     return action.board.lists.reduce((cards, list) => {
       return cards.concat(list.cards);
     }, []);
+  } else if (action.type === 'CREATE_CARD_SUCCESS') {
+    const newCard = action.card;
+    newCard.id = Number(newCard.id);
+    return state.concat(newCard);
   } else {
     return state;
   }

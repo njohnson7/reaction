@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import * as actions from '../../actions/CardActions';
 
 class AddCard extends React.Component {
   state = {

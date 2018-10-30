@@ -6,3 +6,5 @@ export const UPDATE_LIST_URL = (listId) => '/api/lists/' + listId;
 
 export const CREATE_LIST_URL = '/api/lists';
 
+export const CREATE_CARD_URL = '/api/cards';
+
