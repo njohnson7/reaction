@@ -9,6 +9,7 @@ class ListContainer extends React.Component {
   state = {
     addListVisible: false,
     addListText: '',
+    addCardActiveListId: null
   }
 
   static contextTypes = {
@@ -46,6 +47,18 @@ class ListContainer extends React.Component {
     )
   }
 
+  handleAddCardClick = (e, id) => {
+    this.setState({
+      addCardActiveListId: id
+    });
+  }
+
+  onClose = () => {
+    this.setState({
+      addCardActiveListId: null
+    });
+  }
+
   render() {
     return (
       <div id="list-container" className="list-container">
@@ -54,6 +67,9 @@ class ListContainer extends React.Component {
             <List 
               key={list.id} 
               list={list} 
+              onClose={this.onClose}
+              onAddCardClick={this.handleAddCardClick}
+              addCardActive={this.state.addCardActiveListId === list.id}
             />
           ))}
         </div>
