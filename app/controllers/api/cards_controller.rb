@@ -14,9 +14,22 @@ class Api::CardsController < ApplicationController
     render 'api/shared/error', status: :unprocessable_entity
   end
 
+  def show
+    @card = Card.find(params[:id])
+
+    if @card.present?
+      render :show, status: :ok
+    else
+      @error = @card.errors.full_messages.join(', ')
+      render 'api/shared/error', status: :not_found
+    end
+  rescue ActionController::ParameterMissing
+    @error = "Invalid card data provided"
+    render 'api/shared/error', status: :unprocessable_entity    
+  end
+
   def update
     @card = Card.find(params[:id])
-    require 'pry'; binding.pry
 
     if @card.update(card_update_params)
       render :update, status: :ok
