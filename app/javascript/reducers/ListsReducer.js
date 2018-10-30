@@ -4,6 +4,16 @@ export default function listsReducer(state = [], action) {
       const { cards, ...newListWithoutCards } = list;
       return newListWithoutCards;
     });
+  } else if (action.type === 'UPDATE_LIST_SUCCESS') { 
+    const { listId, updatedList } = action;
+
+    return state.map(list => {
+      if (list.id === listId) {
+        return updatedList;
+      } else {
+        return list;
+      }
+    });
   } else {
     return state;
   }
