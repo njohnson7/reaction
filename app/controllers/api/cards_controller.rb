@@ -16,7 +16,6 @@ class Api::CardsController < ApplicationController
 
   def update
     @card = Card.find(params[:id])
-    require 'pry'; binding.pry
 
     if @card.update(card_update_params)
       render :update, status: :ok
