@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import * as actions from '../../actions/CardActions';
 
 // import { fetchBoard } from '../../actions/BoardActions';
@@ -25,7 +26,10 @@ class EditCardForm extends React.Component {
       <div id="modal-container">
         <div className="screen"></div>
         <div id="modal">
-          <i className="x-icon icon close-modal"></i>
+          <Link to={`/boards/${card && card.board_id}`}>
+            <i className="x-icon icon close-modal">
+            </i>
+          </Link>
           <header>
             <i className="card-icon icon .close-modal"></i>
             <textarea className="list-title" style={{height: "45px"}} value={card && card.title}></textarea>
