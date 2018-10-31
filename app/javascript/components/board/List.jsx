@@ -1,9 +1,10 @@
 import React from 'react';
 import EditableListTitle from './EditableListTitle'
 import CardContainer from './CardContainer';
+import AddCard from './AddCard';
 
-const List = ({ list }) => (
-  <div className="list-wrapper">
+const List = ({ list, addCardActive, onAddCardClick, onClose }) => (
+  <div className={`list-wrapper ${addCardActive ? 'add-dropdown-active' : ''}`}>
     <div className="list-background">
       <div className="list">
         <a className="more-icon sm-icon" href=""></a>
@@ -14,13 +15,13 @@ const List = ({ list }) => (
           </div>
         </div>
         <CardContainer listId={list.id} />
-        <div className="add-dropdown add-bottom">
-          <div className="card"><div className="card-info"></div><textarea name="add-card"></textarea><div className="members"></div></div>
-          <a className="button">Add</a><i className="x-icon icon"></i>
-          <div className="add-options"><span>...</span>
-          </div>
+       { addCardActive ? <AddCard listId={list.id} onClose={onClose}/> : null }
+        <div 
+          className="add-card-toggle" 
+          data-position="bottom"
+          onClick={(e) => onAddCardClick(e, list.id)}
+          >Add a card...
         </div>
-        <div className="add-card-toggle" data-position="bottom">Add a card...</div>
       </div>
     </div>
   </div>
