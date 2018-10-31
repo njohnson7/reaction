@@ -13,11 +13,33 @@ class BoardContainer extends React.Component {
     store: PropTypes.object.isRequired
   };
 
+  state = {
+    isFetching: false,
+  }
+
   componentDidMount() {
     const store = this.context.store;
-    const boardId = this.props.match.params.id;    
+    const boardId = this.props.match.params.id;   
     this.unsubscribe = store.subscribe(() => this.forceUpdate());
-    store.dispatch(actions.fetchBoard(boardId));
+
+    const isCardShowing = this.props.match.url.split('/')[1] === 'cards';
+
+    if (isCardShowing) {
+      store.subscribe(this.fetchBoard);
+    } else {
+      store.dispatch(actions.fetchBoard(boardId));      
+    }
+  }
+
+  fetchBoard = () => {
+    const id = Number(this.props.match.params.id);
+    const store = this.context.store;
+    const card = store.getState().cards.find(card => card.id === id);
+
+    if (card && !this.state.isFetching) {
+      this.setState({ isFetching: true });
+      store.dispatch(actions.fetchBoard(card.board_id));
+    }
   }
 
   componentWillUnmount() {

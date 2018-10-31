@@ -8,6 +8,14 @@ export function createCardSuccess(card) {
   return { type: types.CREATE_CARD_SUCCESS, card: card };
 }
 
+export function fetchCardRequest() {
+  return { type: types.FETCH_CARD_REQUEST };
+}
+
+export function fetchCardSuccess(card) {
+  return { type: types.FETCH_CARD_SUCCESS, card: card };
+}
+
 export function createCard(card, callback) {
   return function(dispatch) {
     dispatch(createCardRequest());
@@ -16,5 +24,14 @@ export function createCard(card, callback) {
 
       if (callback) { callback(newCard); }
     })
+  }
+}
+
+export function fetchCard(cardId) {
+  return function(dispatch) {
+    dispatch(fetchCardRequest());
+    apiClient.fetchCard(cardId, card => {
+      dispatch(fetchCardSuccess(card))
+    });
   }
 }

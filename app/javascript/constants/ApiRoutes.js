@@ -8,3 +8,5 @@ export const CREATE_LIST_URL = '/api/lists';
 
 export const CREATE_CARD_URL = '/api/cards';
 
+export const SHOW_CARD_URL = (cardId) => '/api/cards/' + cardId;
+
