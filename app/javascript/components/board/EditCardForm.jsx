@@ -22,17 +22,19 @@ class EditCardForm extends React.Component {
     const cardId = this.props.match.params.id;
     const card = store.getState().cards.find(card => card.id == +cardId);
 
+    if (card === undefined) return null;
+
     return (
       <div id="modal-container">
         <div className="screen"></div>
         <div id="modal">
-          <Link to={`/boards/${card && card.board_id}`}>
+          <Link to={`/boards/${card.board_id}`}>
             <i className="x-icon icon close-modal">
             </i>
           </Link>
           <header>
             <i className="card-icon icon .close-modal"></i>
-            <textarea className="list-title" style={{height: "45px"}} value={card && card.title}></textarea>
+            <textarea className="list-title" style={{height: "45px"}} value={card.title}></textarea>
             <p>in list <a className="link">Stuff to try (this is a list)</a><i className="sub-icon sm-icon"></i>
             </p>
           </header>
@@ -43,7 +45,7 @@ class EditCardForm extends React.Component {
                   <li className="labels-section">
                     <h3>Labels</h3>
                     { 
-                      card && card.labels.map((color, idx) => (
+                      card.labels.map((color, idx) => (
                       <div key={idx} className="member-container">
                         <div className={`${color} label colorblindable`}></div>
                       </div>
@@ -61,7 +63,7 @@ class EditCardForm extends React.Component {
                 </ul>
                 <form className="description">
                   <p>Description</p>
-                  <textarea className="textarea-toggle" rows="1" autoFocus value={card && (card.description || '')}></textarea>
+                  <textarea className="textarea-toggle" rows="1" autoFocus value={(card.description || '')}></textarea>
                   <div>
                     <div className="button" value="Save">Save</div>
                     <i className="x-icon icon"></i>
