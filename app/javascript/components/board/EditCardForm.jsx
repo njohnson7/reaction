@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import * as actions from '../../actions/CardActions';
-
-// import { fetchBoard } from '../../actions/BoardActions';
+import EditableCardTitle from './EditableCardTitle';
+import EditableCardDescription from './EditableCardDescription';
 
 class EditCardForm extends React.Component {
   static contextTypes = {
@@ -34,7 +34,7 @@ class EditCardForm extends React.Component {
           </Link>
           <header>
             <i className="card-icon icon .close-modal"></i>
-            <textarea className="list-title" style={{height: "45px"}} value={card.title}></textarea>
+            <EditableCardTitle card={card} />
             <p>in list <a className="link">Stuff to try (this is a list)</a><i className="sub-icon sm-icon"></i>
             </p>
           </header>
@@ -63,11 +63,7 @@ class EditCardForm extends React.Component {
                 </ul>
                 <form className="description">
                   <p>Description</p>
-                  <textarea className="textarea-toggle" rows="1" autoFocus value={(card.description || '')}></textarea>
-                  <div>
-                    <div className="button" value="Save">Save</div>
-                    <i className="x-icon icon"></i>
-                  </div>
+                  <EditableCardDescription card={card} />
                 </form>
               </li>
               <li className="comment-section">

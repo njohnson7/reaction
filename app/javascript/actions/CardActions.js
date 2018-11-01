@@ -16,6 +16,23 @@ export function fetchCardSuccess(card) {
   return { type: types.FETCH_CARD_SUCCESS, card: card };
 }
 
+export function updateCardRequest() {
+  return { type: types.UPDATE_CARD_REQUEST };
+}
+
+export function updateCardSuccess(cardId, updatedCard) {
+  return { type: types.UPDATE_CARD_SUCCESS, cardId, updatedCard };
+}
+
+export function updateCard(cardId, data) {
+  return function(dispatch) {
+    dispatch(updateCardRequest());
+    apiClient.updateCard(cardId, data, updatedCard => {
+      dispatch(updateCardSuccess(cardId, updatedCard));
+    });
+  }
+}
+
 export function createCard(card, callback) {
   return function(dispatch) {
     dispatch(createCardRequest());
