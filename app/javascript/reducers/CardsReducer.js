@@ -9,6 +9,17 @@ export default function cardsReducer(state = [], action) {
     newCard.id = Number(newCard.id);
     return state.concat(newCard);
 
+  } else if (action.type === 'UPDATE_CARD_SUCCESS') {
+    const { cardId, updatedCard } = action;
+
+    return state.map(card => {
+      if (card.id === cardId) {
+        return updatedCard;
+      } else {
+        return card;
+      }
+    });
+
   } else if (action.type === 'FETCH_CARD_SUCCESS') {
     return state.map(card => {
       if (card.id === action.card.id) {
