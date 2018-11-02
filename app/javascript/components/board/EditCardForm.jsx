@@ -4,10 +4,33 @@ import { Link } from 'react-router-dom';
 import * as actions from '../../actions/CardActions';
 import EditableCardTitle from './EditableCardTitle';
 import EditableCardDescription from './EditableCardDescription';
+import PopOver from './PopOver';
+import DatePicker from './DatePicker';
 
 class EditCardForm extends React.Component {
   static contextTypes = {
     store: PropTypes.object.isRequired
+  }
+
+  state = {
+    position: {
+      top: 133,
+      left: 100
+    },
+    visible: {
+      dueDate: false,
+      label: false
+    },
+    type: null
+  };
+
+  onClick = (e) => {
+    console.log(e.target.dataset);
+    let visibleField = e.target.dataset.visible;
+    let stateVisible = this.state.visible;
+    this.setState({
+      visible: Object.assign(stateVisible, { [visibleField]: true })
+    });
   }
 
   componentDidMount() {
@@ -158,7 +181,21 @@ class EditCardForm extends React.Component {
               <li className="member-button"><i className="person-icon sm-icon"></i>Members</li>
               <li className="label-button"><i className="label-icon sm-icon"></i>Labels</li>
               <li className="checklist-button"><i className="checklist-icon sm-icon"></i>Checklist</li>
-              <li className="date-button not-implemented"><i className="clock-icon sm-icon"></i>Due Date</li>
+              <li 
+                className="date-button not-implemented"
+                data-visible="dueDate"
+                onClick={this.onClick}
+              >
+                <i className="clock-icon sm-icon"></i>
+                <PopOver
+                  visible={this.state.visible.dueDate}
+                  position={this.state.position}
+                  type={'due-date'}
+                >
+                  <DatePicker />
+                </PopOver>
+                Due Date
+              </li>
               <li className="attachment-button not-implemented"><i className="attachment-icon sm-icon"></i>Attachment</li>
             </ul>
             <h2>Actions</h2>
