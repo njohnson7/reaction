@@ -27,15 +27,15 @@ class DatePicker extends React.Component {
     });
   }
 
-  handleFormSubmit(e) {
+  handleFormSubmit = (e) => {
     e.preventDefault();
-    
+
     this.context.store.dispatch(
       actions.updateCard(
         this.props.card.id,
         { 
-          date: this.state.date,
-          time: this.state.time,
+          due_date: this.state.date,
+          // time: this.state.time,
         }
       )
     );
